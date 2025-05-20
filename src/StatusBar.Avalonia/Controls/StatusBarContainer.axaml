@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StatusBar.Avalonia.Controls"
+                    x:ClassModifier="internal">
+
+    <ControlTheme x:Key="StatusBarContainerTheme" TargetType="local:StatusBarContainer">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_RootContainer"
+                        Height="{TemplateBinding Height}"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalAlignment="Stretch"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BoxShadow="{TemplateBinding BoxShadow}"
+                        ClipToBounds="True"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <StackPanel Name="PART_LeftContainer"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Horizontal" />
+                        <StackPanel Name="PART_CenterContainer"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Horizontal" />
+                        <StackPanel Name="PART_RightContainer"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Horizontal" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ Border#PART_RootContainer">
+            <Setter Property="Background" Value="{DynamicResource StatusBarBackgroundColor}" />
+        </Style>
+
+        <Style Selector="^:has-background /template/ Border#PART_RootContainer">
+            <Setter Property="Background" Value="{TemplateBinding Background}" />
+        </Style>
+
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type local:StatusBarContainer}"
+                  BasedOn="{StaticResource StatusBarContainerTheme}"
+                  TargetType="local:StatusBarContainer" />
+</ResourceDictionary>

@@ -1,0 +1,108 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StatusBar.Avalonia.Controls">
+
+    <Design.PreviewWith>
+        <StackPanel>
+            <local:StatusBarItemView IsShow="True" Text="Hello" />
+            <local:StatusBarItemView IsShow="True" Text="$(star)你好" />
+            <local:StatusBarItemView IsShow="True" Text="$(sync~spin) Pushing..." />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Thickness x:Key="StatusBarItemView_RootPadding">8,2,8,2</Thickness>
+
+    <ControlTheme x:Key="StatusBarItemViewTheme" TargetType="local:StatusBarItemView">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_Root"
+                        MinHeight="{Binding $parent[local:StatusBarContainer].Height}"
+                        Padding="{DynamicResource StatusBarItemView_RootPadding}"
+                        VerticalAlignment="Center"
+                        IsVisible="{TemplateBinding IsShow}"
+                        ToolTip.Placement="Top"
+                        ToolTip.ServiceEnabled="{TemplateBinding ToolTip,
+                                                                 Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        ToolTip.ShowDelay="200"
+                        ToolTip.Tip="{TemplateBinding ToolTip}"
+                        ToolTip.VerticalOffset="-5">
+                    <StackPanel Orientation="Horizontal" Spacing="2">
+                        <TextBlock Name="PART_PlainText"
+                                   VerticalAlignment="Center"
+                                   Classes="_ItemText"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   FontStyle="{TemplateBinding FontStyle}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   Text="{TemplateBinding Text,
+                                                          Converter={x:Static local:StatusBarItemView.ResolveIconConverter}}">
+                            <TextBlock.IsVisible>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
+                                             Path="Text"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Converter="{x:Static local:StatusBarItemView.TextHasIconReverseConverter}"
+                                             Path="Text"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </TextBlock.IsVisible>
+                        </TextBlock>
+                        <TextBlock Name="PART_RichText"
+                                   VerticalAlignment="Center"
+                                   Classes="_ItemText"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   FontStyle="{TemplateBinding FontStyle}"
+                                   FontWeight="{TemplateBinding FontWeight}" />
+                        <ContentPresenter Name="PART_Content"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          IsVisible="{TemplateBinding Content,
+                                                                      Converter={x:Static ObjectConverters.IsNotNull}}" />
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <!--  // Root //  -->
+
+        <Style Selector="^ /template/ Border#PART_Root">
+            <Setter Property="Background" Value="{Binding $parent[local:StatusBarContainer].Background}" />
+        </Style>
+
+        <Style Selector="^:has-click /template/ Border#PART_Root">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="^:has-background /template/ Border#PART_Root">
+            <Setter Property="Background" Value="{TemplateBinding BackgroundColor}" />
+        </Style>
+
+        <Style Selector="^:has-click:not(:has-background):pointerover /template/ Border#PART_Root">
+            <Setter Property="Background" Value="{DynamicResource StatusBarHoverBackgroundColor}" />
+        </Style>
+
+        <Style Selector="^:has-click:not(:has-background):pressed /template/ Border#PART_Root">
+            <Setter Property="Background" Value="{DynamicResource StatusBarActiveBackgroundColor}" />
+        </Style>
+
+        <!--  // Text //  -->
+
+        <Style Selector="^ /template/ TextBlock._ItemText">
+            <Setter Property="Foreground" Value="{DynamicResource StatusBarForegroundColor}" />
+        </Style>
+
+        <Style Selector="^:has-foreground /template/ TextBlock._ItemText">
+            <Setter Property="Foreground" Value="{TemplateBinding Color}" />
+        </Style>
+
+        <Style Selector="^:has-click:pointerover:not(:has-foreground) /template/ TextBlock._ItemText">
+            <Setter Property="Foreground" Value="{DynamicResource StatusBarHoverForegroundColor}" />
+        </Style>
+
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type local:StatusBarItemView}"
+                  BasedOn="{StaticResource StatusBarItemViewTheme}"
+                  TargetType="local:StatusBarItemView" />
+</ResourceDictionary>

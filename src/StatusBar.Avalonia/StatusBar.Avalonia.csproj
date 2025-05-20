@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <!--suppress CheckTagEmptyBody -->
+        <VersionSuffix></VersionSuffix>
+        <Authors>xiyaowong</Authors>
+        <Company>xiyaowong</Company>
+        <Title>StatusBar Avalonia</Title>
+        <Description>A status bar control for AvaloniaUI with a simple and flexible API.</Description>
+        <RepositoryUrl>https://github.com/xiyaowong/StatusBar.Avalonia</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/xiyaowong/StatusBar.Avalonia</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>avalonia;avaloniaui;statusbar</PackageTags>
+        <Copyright>Copyright (c) 2025 xiyaowong</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>

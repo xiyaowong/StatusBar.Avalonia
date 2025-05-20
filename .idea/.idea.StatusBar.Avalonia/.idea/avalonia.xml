@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="demo/StatusBarDemo/App.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
+        <entry key="demo/StatusBarDemo/Views/MainView.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
+        <entry key="demo/StatusBarDemo/Views/MainWindow.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
+        <entry key="src/StatusBar.Avalonia/Controls/CodiconRun.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
+        <entry key="src/StatusBar.Avalonia/Controls/StatusBarContainer.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
+        <entry key="src/StatusBar.Avalonia/Controls/StatusBarItemView.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
+        <entry key="src/StatusBar.Avalonia/Themes/StatusBarTheme.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

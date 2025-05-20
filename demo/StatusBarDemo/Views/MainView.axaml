@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="StatusBarDemo.Views.MainView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:status="https://github.com/xiyaowong/StatusBar.Avalonia"
+             xmlns:vm="clr-namespace:StatusBarDemo.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="1200"
+             x:DataType="vm:MainViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             mc:Ignorable="d">
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Grid.Row="0"
+              Margin="10"
+              ColumnDefinitions="*,Auto">
+            <StackPanel Orientation="Horizontal" Spacing="15">
+                <Button Command="{Binding ShowCurrentDateTimeCommand}" Content="Show Current DateTime" />
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <Button Command="{Binding DecreaseCounterCommand}" Content="Decrease" />
+                    <Button Command="{Binding ResetCounterCommand}" Content="Reset" />
+                    <Button Command="{Binding IncreaseCounterCommand}" Content="Increase" />
+                </StackPanel>
+                <Button Command="{Binding SimulateSettingPythonEnvironmentCommand}" Content="Setup Python" />
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold">
+                        ColorTheme
+                    </TextBlock>
+                    <ComboBox SelectedIndex="0" SelectionChanged="ColorThemeChanged">
+                        <ComboBoxItem Content="{x:Static status:ColorTheme.DarkPlus}" />
+                        <ComboBoxItem Content="{x:Static status:ColorTheme.OneDark}" />
+                        <ComboBoxItem Content="{x:Static status:ColorTheme.GithubDefault}" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold">
+                        Theme
+                    </TextBlock>
+                    <ComboBox SelectedIndex="0" SelectionChanged="ThemeChanged">
+                        <ComboBoxItem Content="{x:Static ThemeVariant.Dark}" />
+                        <ComboBoxItem Content="{x:Static ThemeVariant.Light}" />
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <status:StatusBarContainer Name="_StatusBarContainer" Grid.Row="2" />
+    </Grid>
+
+</UserControl>

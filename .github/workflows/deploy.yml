@@ -1,0 +1,41 @@
+name: Deploy to GitHub Pages
+
+env:
+  PROJECT_PATH: demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj
+  OUTPUT_PATH: demo/StatusBarDemo.Browser/bin/Release/net9.0-browser/publish/wwwroot
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
+
+      - name: Publish .NET Project
+        run: dotnet publish $PROJECT_PATH -c Release --nologo
+
+      - name: Change base-tag in index.html
+        run: sed -i 's#<base href="/" />#<base href="/StatusBar.Avalonia/" />#g' $OUTPUT_PATH/index.html
+
+      - name: copy index.html to 404.html
+        run: cp $OUTPUT_PATH/index.html $OUTPUT_PATH/404.html
+
+      - name: Add .nojekyll file
+        run: touch $OUTPUT_PATH/.nojekyll
+
+      - name: Commit wwwroot to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          branch: gh-pages
+          folder: ${{ env.OUTPUT_PATH }}
+          single-commit: true

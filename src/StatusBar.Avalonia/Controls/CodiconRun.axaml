@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StatusBar.Avalonia.Controls"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
+
+    <Design.PreviewWith>
+        <StackPanel Spacing="10">
+            <TextBlock Foreground="Aqua">
+                <local:CodiconRun Foreground="Red"
+                                  Icon="gear"
+                                  Spin="True" />
+                <local:CodiconRun Foreground="Red" Icon="&#xea60;" />
+                <local:CodiconRun Icon="sync" Spin="True" />
+                <local:CodiconRun Icon="loading" Spin="True" />
+                <local:CodiconRun Icon="light-bulb" Spin="True" />
+            </TextBlock>
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <FontFamily x:Key="CodiconFont">avares://StatusBar.Avalonia/Assets/Fonts/codicon.ttf#Codicon</FontFamily>
+    <system:TimeSpan x:Key="SpinDurationTimeSpan">0:0:2.4</system:TimeSpan>
+
+    <ControlTheme x:Key="CodiconRunTheme" TargetType="local:CodiconRun">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Viewbox Name="PART_IconViewbox"
+                             Width="{TemplateBinding FontSize}"
+                             Height="{TemplateBinding FontSize}"
+                             VerticalAlignment="Center">
+                        <Path Name="PART_SpinIconPath"
+                              Fill="{TemplateBinding Foreground}"
+                              Stretch="Uniform" />
+                    </Viewbox>
+
+                    <TextBlock Name="PART_IconText"
+                               VerticalAlignment="Center"
+                               FontFamily="{StaticResource CodiconFont}"
+                               FontSize="{TemplateBinding FontSize}"
+                               FontStretch="{TemplateBinding FontStretch}"
+                               FontStyle="{TemplateBinding FontStyle}"
+                               FontWeight="{TemplateBinding FontWeight}"
+                               Foreground="{TemplateBinding Foreground}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="FontFamily" Value="{StaticResource CodiconFont}" />
+
+        <Style Selector="^[Spin=True] /template/ Viewbox#PART_IconViewbox">
+            <Style.Animations>
+                <Animation FillMode="None"
+                           IterationCount="INFINITE"
+                           Duration="{StaticResource SpinDurationTimeSpan}">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="RotateTransform.Angle" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="RotateTransform.Angle" Value="360" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type local:CodiconRun}"
+                  BasedOn="{StaticResource CodiconRunTheme}"
+                  TargetType="local:CodiconRun" />
+</ResourceDictionary>
