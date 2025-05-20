@@ -6,6 +6,8 @@
 A status bar control for [AvaloniaUI](https://avaloniaui.net), inspired by the Visual Studio Code status bar, with a
 simple and flexible API.
 
+https://github.com/user-attachments/assets/7e88c2bb-a6df-4496-b03e-e1b6c7ee99fc
+
 ---
 
 ## Getting Started
