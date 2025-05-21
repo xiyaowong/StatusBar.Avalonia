@@ -6,13 +6,13 @@
     <Design.PreviewWith>
         <StackPanel Spacing="10">
             <TextBlock Foreground="Aqua">
-                <local:CodiconRun Foreground="Red"
+                <local:Codicon Foreground="Red"
                                   Icon="gear"
                                   Spin="True" />
-                <local:CodiconRun Foreground="Red" Icon="&#xea60;" />
-                <local:CodiconRun Icon="sync" Spin="True" />
-                <local:CodiconRun Icon="loading" Spin="True" />
-                <local:CodiconRun Icon="light-bulb" Spin="True" />
+                <local:Codicon Foreground="Red" Icon="&#xea60;" />
+                <local:Codicon Icon="sync" Spin="True" />
+                <local:Codicon Icon="loading" Spin="True" />
+                <local:Codicon Icon="light-bulb" Spin="True" />
             </TextBlock>
         </StackPanel>
     </Design.PreviewWith>
@@ -20,7 +20,7 @@
     <FontFamily x:Key="CodiconFont">avares://StatusBar.Avalonia/Assets/Fonts/codicon.ttf#Codicon</FontFamily>
     <system:TimeSpan x:Key="SpinDurationTimeSpan">0:0:2.4</system:TimeSpan>
 
-    <ControlTheme x:Key="CodiconRunTheme" TargetType="local:CodiconRun">
+    <ControlTheme x:Key="CodiconRunTheme" TargetType="local:Codicon">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -63,7 +63,7 @@
         </Style>
     </ControlTheme>
 
-    <ControlTheme x:Key="{x:Type local:CodiconRun}"
+    <ControlTheme x:Key="{x:Type local:Codicon}"
                   BasedOn="{StaticResource CodiconRunTheme}"
-                  TargetType="local:CodiconRun" />
+                  TargetType="local:Codicon" />
 </ResourceDictionary>

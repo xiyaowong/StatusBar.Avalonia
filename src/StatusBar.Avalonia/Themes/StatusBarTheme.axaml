@@ -6,8 +6,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://StatusBar.Avalonia/Controls/StatusBarContainer.axaml" />
-                <ResourceInclude Source="avares://StatusBar.Avalonia/Controls/StatusBarItemView.axaml" />
-                <ResourceInclude Source="avares://StatusBar.Avalonia/Controls/CodiconRun.axaml" />
+                <ResourceInclude Source="avares://StatusBar.Avalonia/Controls/StatusBarEntry.axaml" />
+                <ResourceInclude Source="avares://StatusBar.Avalonia/Controls/Codicon.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

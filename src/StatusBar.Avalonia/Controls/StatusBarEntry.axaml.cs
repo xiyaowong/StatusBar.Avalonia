@@ -15,7 +15,7 @@ namespace StatusBar.Avalonia.Controls;
 /// Represents a status bar item.
 /// </summary>
 [PseudoClasses(PC_Pressed, PC_HasClick, PC_HasBackground, PC_HasForeground)]
-internal partial class StatusBarItemView : ContentControl
+internal partial class StatusBarEntry : ContentControl
 {
     private const string PC_Pressed = ":pressed";
     private const string PC_HasClick = ":has-click";
@@ -29,7 +29,7 @@ internal partial class StatusBarItemView : ContentControl
     /// <summary>
     /// Defines the <see cref="Id"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<string> IdProperty = AvaloniaProperty.Register<StatusBarItemView, string>(
+    public static readonly StyledProperty<string> IdProperty = AvaloniaProperty.Register<StatusBarEntry, string>(
         nameof(Id)
     );
 
@@ -37,21 +37,21 @@ internal partial class StatusBarItemView : ContentControl
     /// Defines the <see cref="Alignment"/> avalonia property.
     /// </summary>
     public static readonly StyledProperty<StatusBarAlignment> AlignmentProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
+        StatusBarEntry,
         StatusBarAlignment
     >(nameof(Alignment));
 
     /// <summary>
     /// Defines the <see cref="Priority"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<int> PriorityProperty = AvaloniaProperty.Register<StatusBarItemView, int>(
+    public static readonly StyledProperty<int> PriorityProperty = AvaloniaProperty.Register<StatusBarEntry, int>(
         nameof(Priority)
     );
 
     /// <summary>
     /// Defines the <see cref="Text"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<StatusBarItemView, string>(
+    public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<StatusBarEntry, string>(
         nameof(Text),
         string.Empty
     );
@@ -59,49 +59,46 @@ internal partial class StatusBarItemView : ContentControl
     /// <summary>
     /// Defines the <see cref="ToolTip"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<string> ToolTipProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
-        string
-    >(nameof(ToolTip), string.Empty);
+    public static readonly StyledProperty<string> ToolTipProperty = AvaloniaProperty.Register<StatusBarEntry, string>(
+        nameof(ToolTip),
+        string.Empty
+    );
 
     /// <summary>
     /// Defines the <see cref="Click"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<Action?> ClickProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
-        Action?
-    >(nameof(Click));
+    public static readonly StyledProperty<Action?> ClickProperty = AvaloniaProperty.Register<StatusBarEntry, Action?>(
+        nameof(Click)
+    );
 
     /// <summary>
     /// Defines the <see cref="IsShow"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<bool> IsShowProperty = AvaloniaProperty.Register<StatusBarItemView, bool>(
+    public static readonly StyledProperty<bool> IsShowProperty = AvaloniaProperty.Register<StatusBarEntry, bool>(
         nameof(IsShow)
     );
 
     /// <summary>
     /// Defines the <see cref="Color"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<IBrush?> ColorProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
-        IBrush?
-    >(nameof(Color));
+    public static readonly StyledProperty<IBrush?> ColorProperty = AvaloniaProperty.Register<StatusBarEntry, IBrush?>(
+        nameof(Color)
+    );
 
     /// <summary>
     /// Defines the <see cref="BackgroundColor"/> avalonia property.
     /// </summary>
     public static readonly StyledProperty<IBrush?> BackgroundColorProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
+        StatusBarEntry,
         IBrush?
     >(nameof(BackgroundColor));
 
     /// <summary>
     /// Defines the <see cref="IsTemporary"/> avalonia property.
     /// </summary>
-    public static readonly StyledProperty<bool> IsTemporaryProperty = AvaloniaProperty.Register<
-        StatusBarItemView,
-        bool
-    >(nameof(IsTemporary));
+    public static readonly StyledProperty<bool> IsTemporaryProperty = AvaloniaProperty.Register<StatusBarEntry, bool>(
+        nameof(IsTemporary)
+    );
 
     #endregion
 
@@ -301,7 +298,7 @@ internal partial class StatusBarItemView : ContentControl
                 var iconName = spin ? _iconName[..^SPIN_SUFFIX.Length] : _iconName;
                 if (IconProvider.GetIcon(iconName) != null)
                 {
-                    inlines.Add(new CodiconRun { Icon = iconName, Spin = spin });
+                    inlines.Add(new Codicon { Icon = iconName, Spin = spin });
                 }
                 else
                 {

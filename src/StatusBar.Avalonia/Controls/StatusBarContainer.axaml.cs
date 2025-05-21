@@ -26,7 +26,7 @@ public sealed class StatusBarContainer : TemplatedControl
     private StackPanel _centerContainer = null!;
     private StackPanel _rightContainer = null!;
 
-    private readonly ConcurrentQueue<StatusBarItemView> _pendingItems = new();
+    private readonly ConcurrentQueue<StatusBarEntry> _pendingItems = new();
 
     static StatusBarContainer()
     {
@@ -50,11 +50,11 @@ public sealed class StatusBarContainer : TemplatedControl
 
         while (_pendingItems.TryDequeue(out var item))
         {
-            AddStatusBarItemView(item);
+            AddStatusBarEntry(item);
         }
     }
 
-    internal void AddStatusBarItemView(StatusBarItemView newItem)
+    internal void AddStatusBarEntry(StatusBarEntry newItem)
     {
         ArgumentNullException.ThrowIfNull(newItem);
 
@@ -82,7 +82,7 @@ public sealed class StatusBarContainer : TemplatedControl
         {
             for (var i = 0; i < items.Count; i++)
             {
-                if (items[i] is StatusBarItemView existingItem && existingItem.Priority < newItemPriority)
+                if (items[i] is StatusBarEntry existingItem && existingItem.Priority < newItemPriority)
                 {
                     return i;
                 }
@@ -94,7 +94,7 @@ public sealed class StatusBarContainer : TemplatedControl
 
     private void OnStatusBarItemDisposed(object? sender, EventArgs e)
     {
-        if (sender is not StatusBarItemView item)
+        if (sender is not StatusBarEntry item)
             return;
 
         item.Disposed -= OnStatusBarItemDisposed;

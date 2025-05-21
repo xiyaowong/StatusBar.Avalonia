@@ -8,6 +8,7 @@
         <entry key="demo/StatusBarDemo/Views/MainWindow.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
         <entry key="src/StatusBar.Avalonia/Controls/CodiconRun.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
         <entry key="src/StatusBar.Avalonia/Controls/StatusBarContainer.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
+        <entry key="src/StatusBar.Avalonia/Controls/StatusBarEntry.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
         <entry key="src/StatusBar.Avalonia/Controls/StatusBarItemView.axaml" value="demo/StatusBarDemo.Desktop/StatusBarDemo.Desktop.csproj" />
         <entry key="src/StatusBar.Avalonia/Themes/StatusBarTheme.axaml" value="demo/StatusBarDemo.Browser/StatusBarDemo.Browser.csproj" />
       </map>

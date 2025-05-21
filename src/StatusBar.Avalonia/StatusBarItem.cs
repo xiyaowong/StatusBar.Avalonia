@@ -10,23 +10,23 @@ namespace StatusBar.Avalonia;
 /// </summary>
 public sealed class StatusBarItem : IDisposable
 {
-    private StatusBarItemView? _itemView;
+    private StatusBarEntry? _entry;
 
     private bool _isDisposed;
 
-    internal StatusBarItem(StatusBarItemView itemView)
+    internal StatusBarItem(StatusBarEntry entry)
     {
-        Id = itemView.Id;
-        Alignment = itemView.Alignment;
-        Priority = itemView.Priority;
-        Text = itemView.Text;
-        ToolTip = itemView.ToolTip;
-        Click = itemView.Click;
-        Color = itemView.Color;
-        BackgroundColor = itemView.BackgroundColor;
-        FontWeight = itemView.FontWeight;
+        Id = entry.Id;
+        Alignment = entry.Alignment;
+        Priority = entry.Priority;
+        Text = entry.Text;
+        ToolTip = entry.ToolTip;
+        Click = entry.Click;
+        Color = entry.Color;
+        BackgroundColor = entry.BackgroundColor;
+        FontWeight = entry.FontWeight;
 
-        _itemView = itemView;
+        _entry = entry;
     }
 
     /// <summary>
@@ -60,15 +60,15 @@ public sealed class StatusBarItem : IDisposable
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
 
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.Text = value;
+                _entry.Text = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.Text = value);
+                Dispatcher.UIThread.Invoke(() => _entry.Text = value);
         }
     }
 
@@ -82,15 +82,15 @@ public sealed class StatusBarItem : IDisposable
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
 
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.ToolTip = value;
+                _entry.ToolTip = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.ToolTip = value);
+                Dispatcher.UIThread.Invoke(() => _entry.ToolTip = value);
         }
     }
 
@@ -104,15 +104,15 @@ public sealed class StatusBarItem : IDisposable
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
 
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.Click = value;
+                _entry.Click = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.Click = value);
+                Dispatcher.UIThread.Invoke(() => _entry.Click = value);
         }
     }
 
@@ -126,15 +126,15 @@ public sealed class StatusBarItem : IDisposable
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
 
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.Color = value;
+                _entry.Color = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.Color = value);
+                Dispatcher.UIThread.Invoke(() => _entry.Color = value);
         }
     }
 
@@ -148,15 +148,15 @@ public sealed class StatusBarItem : IDisposable
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
 
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.BackgroundColor = value;
+                _entry.BackgroundColor = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.BackgroundColor = value);
+                Dispatcher.UIThread.Invoke(() => _entry.BackgroundColor = value);
         }
     }
 
@@ -166,15 +166,15 @@ public sealed class StatusBarItem : IDisposable
         set
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             field = value;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.FontWeight = value;
+                _entry.FontWeight = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.FontWeight = value);
+                Dispatcher.UIThread.Invoke(() => _entry.FontWeight = value);
         }
     }
 
@@ -182,23 +182,23 @@ public sealed class StatusBarItem : IDisposable
     {
         get
         {
-            if (_itemView == null)
+            if (_entry == null)
                 return null;
 
             return Dispatcher.UIThread.CheckAccess()
-                ? _itemView.Content
-                : Dispatcher.UIThread.Invoke(() => _itemView.Content);
+                ? _entry.Content
+                : Dispatcher.UIThread.Invoke(() => _entry.Content);
         }
         set
         {
             ObjectDisposedException.ThrowIf(_isDisposed, this);
-            if (_itemView == null)
+            if (_entry == null)
                 return;
 
             if (Dispatcher.UIThread.CheckAccess())
-                _itemView.Content = value;
+                _entry.Content = value;
             else
-                Dispatcher.UIThread.Invoke(() => _itemView.Content = value);
+                Dispatcher.UIThread.Invoke(() => _entry.Content = value);
         }
     }
 
@@ -208,13 +208,13 @@ public sealed class StatusBarItem : IDisposable
     public void Show()
     {
         ObjectDisposedException.ThrowIf(_isDisposed, this);
-        if (_itemView == null)
+        if (_entry == null)
             return;
 
         if (Dispatcher.UIThread.CheckAccess())
-            _itemView.IsShow = true;
+            _entry.IsShow = true;
         else
-            Dispatcher.UIThread.Invoke(() => _itemView.IsShow = true);
+            Dispatcher.UIThread.Invoke(() => _entry.IsShow = true);
     }
 
     /// <summary>
@@ -223,19 +223,19 @@ public sealed class StatusBarItem : IDisposable
     public void Hide()
     {
         ObjectDisposedException.ThrowIf(_isDisposed, this);
-        if (_itemView == null)
+        if (_entry == null)
             return;
 
         if (Dispatcher.UIThread.CheckAccess())
-            _itemView.IsShow = false;
+            _entry.IsShow = false;
         else
-            Dispatcher.UIThread.Invoke(() => _itemView.IsShow = false);
+            Dispatcher.UIThread.Invoke(() => _entry.IsShow = false);
     }
 
     /// <inheritdoc />
     public void Dispose()
     {
-        if (_itemView == null)
+        if (_entry == null)
             return;
 
         if (_isDisposed)
@@ -244,10 +244,10 @@ public sealed class StatusBarItem : IDisposable
         _isDisposed = true;
 
         if (Dispatcher.UIThread.CheckAccess())
-            _itemView.Dispose();
+            _entry.Dispose();
         else
-            Dispatcher.UIThread.Invoke(() => _itemView.Dispose());
+            Dispatcher.UIThread.Invoke(() => _entry.Dispose());
 
-        _itemView = null;
+        _entry = null;
     }
 }

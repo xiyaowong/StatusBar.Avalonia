@@ -4,20 +4,20 @@
 
     <Design.PreviewWith>
         <StackPanel>
-            <local:StatusBarItemView IsShow="True" Text="Hello" />
-            <local:StatusBarItemView IsShow="True" Text="$(star)你好" />
-            <local:StatusBarItemView IsShow="True" Text="$(sync~spin) Pushing..." />
+            <local:StatusBarEntry IsShow="True" Text="Hello" />
+            <local:StatusBarEntry IsShow="True" Text="$(star)你好" />
+            <local:StatusBarEntry IsShow="True" Text="$(sync~spin) Pushing..." />
         </StackPanel>
     </Design.PreviewWith>
 
-    <Thickness x:Key="StatusBarItemView_RootPadding">8,2,8,2</Thickness>
+    <Thickness x:Key="StatusBarEntryRootPadding">8,2,8,2</Thickness>
 
-    <ControlTheme x:Key="StatusBarItemViewTheme" TargetType="local:StatusBarItemView">
+    <ControlTheme x:Key="StatusBarEntryTheme" TargetType="local:StatusBarEntry">
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_Root"
                         MinHeight="{Binding $parent[local:StatusBarContainer].Height}"
-                        Padding="{DynamicResource StatusBarItemView_RootPadding}"
+                        Padding="{DynamicResource StatusBarEntryRootPadding}"
                         VerticalAlignment="Center"
                         IsVisible="{TemplateBinding IsShow}"
                         ToolTip.Placement="Top"
@@ -35,13 +35,13 @@
                                    FontStyle="{TemplateBinding FontStyle}"
                                    FontWeight="{TemplateBinding FontWeight}"
                                    Text="{TemplateBinding Text,
-                                                          Converter={x:Static local:StatusBarItemView.ResolveIconConverter}}">
+                                                          Converter={x:Static local:StatusBarEntry.ResolveIconConverter}}">
                             <TextBlock.IsVisible>
                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                                     <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
                                              Path="Text"
                                              RelativeSource="{RelativeSource TemplatedParent}" />
-                                    <Binding Converter="{x:Static local:StatusBarItemView.TextHasIconReverseConverter}"
+                                    <Binding Converter="{x:Static local:StatusBarEntry.TextHasIconReverseConverter}"
                                              Path="Text"
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
@@ -102,7 +102,7 @@
 
     </ControlTheme>
 
-    <ControlTheme x:Key="{x:Type local:StatusBarItemView}"
-                  BasedOn="{StaticResource StatusBarItemViewTheme}"
-                  TargetType="local:StatusBarItemView" />
+    <ControlTheme x:Key="{x:Type local:StatusBarEntry}"
+                  BasedOn="{StaticResource StatusBarEntryTheme}"
+                  TargetType="local:StatusBarEntry" />
 </ResourceDictionary>

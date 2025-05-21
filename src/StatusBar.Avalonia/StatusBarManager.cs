@@ -9,7 +9,7 @@ namespace StatusBar.Avalonia;
 
 public class StatusBarManager
 {
-    private readonly ConcurrentQueue<StatusBarItemView> _pendingItems = new();
+    private readonly ConcurrentQueue<StatusBarEntry> _pendingItems = new();
 
     private StatusBarContainer? _statusBarContainer;
 
@@ -31,7 +31,7 @@ public class StatusBarManager
 
         while (_pendingItems.TryDequeue(out var item))
         {
-            _statusBarContainer.AddStatusBarItemView(item);
+            _statusBarContainer.AddStatusBarEntry(item);
         }
     }
 
@@ -46,14 +46,14 @@ public class StatusBarManager
     {
         Dispatcher.UIThread.VerifyAccess();
 
-        var itemView = new StatusBarItemView
+        var entry = new StatusBarEntry
         {
             Id = id,
             Alignment = alignment,
             Priority = priority,
         };
-        AddStatusBarItemView(itemView);
-        return new StatusBarItem(itemView);
+        AddStatusBarEntry(entry);
+        return new StatusBarItem(entry);
     }
 
     /// <summary>
@@ -66,14 +66,14 @@ public class StatusBarManager
     {
         Dispatcher.UIThread.VerifyAccess();
 
-        var itemView = new StatusBarItemView
+        var entry = new StatusBarEntry
         {
             Id = Guid.NewGuid().ToString("B"),
             IsTemporary = true,
             Text = text,
             IsShow = true,
         };
-        AddStatusBarItemView(itemView);
+        AddStatusBarEntry(entry);
 
         var cts = new CancellationTokenSource();
 
@@ -90,7 +90,7 @@ public class StatusBarManager
                 }
                 finally
                 {
-                    Dispatcher.UIThread.Post(() => itemView.Dispose());
+                    Dispatcher.UIThread.Post(() => entry.Dispose());
                 }
             },
             cts.Token
@@ -99,7 +99,7 @@ public class StatusBarManager
         return new DisposableAction(() =>
         {
             cts.Cancel();
-            Dispatcher.UIThread.Post(() => itemView.Dispose());
+            Dispatcher.UIThread.Post(() => entry.Dispose());
         });
     }
 
@@ -113,14 +113,14 @@ public class StatusBarManager
     {
         Dispatcher.UIThread.VerifyAccess();
 
-        var itemView = new StatusBarItemView
+        var entry = new StatusBarEntry
         {
             Id = Guid.NewGuid().ToString("B"),
             IsTemporary = true,
             Text = text,
             IsShow = true,
         };
-        AddStatusBarItemView(itemView);
+        AddStatusBarEntry(entry);
 
         var cts = new CancellationTokenSource();
 
@@ -133,7 +133,7 @@ public class StatusBarManager
                 }
                 finally
                 {
-                    Dispatcher.UIThread.Post(() => itemView.Dispose());
+                    Dispatcher.UIThread.Post(() => entry.Dispose());
                 }
             },
             cts.Token
@@ -142,24 +142,24 @@ public class StatusBarManager
         return new DisposableAction(() =>
         {
             cts.Cancel();
-            Dispatcher.UIThread.Post(() => itemView.Dispose());
+            Dispatcher.UIThread.Post(() => entry.Dispose());
         });
     }
 
-    private void AddStatusBarItemView(StatusBarItemView itemView)
+    private void AddStatusBarEntry(StatusBarEntry entry)
     {
         if (_statusBarContainer == null)
         {
-            _pendingItems.Enqueue(itemView);
+            _pendingItems.Enqueue(entry);
             return;
         }
 
         while (_pendingItems.TryDequeue(out var item))
         {
-            _statusBarContainer.AddStatusBarItemView(item);
+            _statusBarContainer.AddStatusBarEntry(item);
         }
 
-        _statusBarContainer.AddStatusBarItemView(itemView);
+        _statusBarContainer.AddStatusBarEntry(entry);
     }
 }
 

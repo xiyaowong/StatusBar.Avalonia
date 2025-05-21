@@ -7,7 +7,7 @@ using Avalonia.Media;
 
 namespace StatusBar.Avalonia.Controls;
 
-internal class CodiconRun : TemplatedControl
+internal class Codicon : TemplatedControl
 {
     private static readonly Dictionary<string, StreamGeometry> SpinIconPathMap = new()
     {
@@ -32,7 +32,7 @@ internal class CodiconRun : TemplatedControl
         },
     };
 
-    public static readonly StyledProperty<string?> IconProperty = AvaloniaProperty.Register<CodiconRun, string?>(
+    public static readonly StyledProperty<string?> IconProperty = AvaloniaProperty.Register<Codicon, string?>(
         nameof(Icon)
     );
 
@@ -42,7 +42,7 @@ internal class CodiconRun : TemplatedControl
         set => SetValue(IconProperty, value);
     }
 
-    public static readonly StyledProperty<bool> SpinProperty = AvaloniaProperty.Register<CodiconRun, bool>(
+    public static readonly StyledProperty<bool> SpinProperty = AvaloniaProperty.Register<Codicon, bool>(
         nameof(Spin)
     );
 
