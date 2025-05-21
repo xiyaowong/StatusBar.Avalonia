@@ -17,6 +17,7 @@ public sealed class StatusBarItem : IDisposable
     internal StatusBarItem(StatusBarEntry entry)
     {
         Id = entry.Id;
+        Name = entry.DisplayName;
         Alignment = entry.Alignment;
         Priority = entry.Priority;
         Text = entry.Text;
@@ -44,6 +45,30 @@ public sealed class StatusBarItem : IDisposable
     /// Higher value means the item should be shown more to the left.
     /// </summary>
     public int Priority { get; private set; }
+
+    /// <summary>
+    /// The name of the entry, like 'Python Language Indicator', 'Git Status' etc.
+    /// Try to keep the length of the name short, yet descriptive enough
+    /// that users can understand what the status bar item is about.
+    /// </summary>
+    public string? Name
+    {
+        get;
+        set
+        {
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
+
+            if (_entry == null)
+                return;
+
+            field = value;
+
+            if (Dispatcher.UIThread.CheckAccess())
+                _entry.DisplayName = value;
+            else
+                Dispatcher.UIThread.Invoke(() => _entry.DisplayName = value);
+        }
+    }
 
     /// <summary>
     /// The text to show for the entry. You can embed icons in the text by leveraging the syntax:

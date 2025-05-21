@@ -265,8 +265,7 @@ public sealed class StatusBarContainer : TemplatedControl
             menu.Items.Add(
                 new MenuItem()
                 {
-                    // TODO: display name
-                    Header = entry.Id,
+                    Header = entry.DisplayName ?? entry.Id,
                     IsChecked = !DisabledItems.Contains(entry.Id),
                     Tag = entry.Id,
                     ToggleType = MenuItemToggleType.CheckBox,
@@ -278,7 +277,7 @@ public sealed class StatusBarContainer : TemplatedControl
         {
             menu.Items.Add("-");
 
-            var hideItem = new MenuItem { Header = $"Hide '{activeEntry.Id}'" };
+            var hideItem = new MenuItem { Header = $"Hide '{activeEntry.DisplayName ?? activeEntry.Id}'" };
             hideItem.Click += (_, _) => DisabledItems.Add(activeEntry.Id);
             menu.Items.Add(hideItem);
         }

@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StatusBar.Avalonia;
-using StatusBar.Avalonia.Themes;
 
 namespace StatusBarDemo.ViewModels;
 
@@ -131,6 +127,7 @@ public partial class MainViewModel : ViewModelBase
     private void InitModeItem()
     {
         _modeItem.Color = Brushes.Black;
+        _modeItem.Name = "Vim Mode";
         _modeItem.Click = () =>
             setMode(
                 _modeItem.Text switch
@@ -161,6 +158,7 @@ public partial class MainViewModel : ViewModelBase
     private void InitGitItem()
     {
         _gitBranchItem.Text = "$(git-branch) master";
+        _gitBranchItem.Name = "Git Branch";
         _gitBranchItem.ToolTip = "Current branch";
         _gitBranchItem.Click = () =>
         {
@@ -171,6 +169,7 @@ public partial class MainViewModel : ViewModelBase
 
         _gitStatusItem.Text = "↑ 1 ↓ 0 ! 0";
         _gitStatusItem.ToolTip = "Sync with remote";
+        _gitStatusItem.Name = "Git Status";
         _gitStatusItem.Click = () =>
         {
             if (_gitStatusItem.Text == "$(sync~spin) ↑ 1 ↓ 0 ! 0")
@@ -191,12 +190,14 @@ public partial class MainViewModel : ViewModelBase
     private void InitLineBreakItem()
     {
         _lineBreakItem.Text = "LF";
+        _lineBreakItem.Name = "Line Break";
         _lineBreakItem.Show();
     }
 
     private void InitEncodingItem()
     {
         _encodingItem.Text = "UTF-8";
+        _encodingItem.Name = "File Encoding";
         _encodingItem.Show();
     }
 
