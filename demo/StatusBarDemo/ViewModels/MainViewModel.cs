@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -9,7 +8,6 @@ using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StatusBar.Avalonia;
-using StatusBar.Avalonia.Themes;
 
 namespace StatusBarDemo.ViewModels;
 
@@ -28,8 +26,16 @@ public partial class MainViewModel : ViewModelBase
     private readonly StatusBarItem _logoItem;
     private readonly StatusBarItem _counterItem;
 
+    [ObservableProperty]
+    private AvaloniaList<string> _disabledItems;
+
+    [ObservableProperty]
+    private bool _disableContextMenu;
+
     public MainViewModel()
     {
+        DisabledItems = [];
+
         _modeItem = StatusBarManager.CreateStatusBarItem("mode");
         _gitBranchItem = StatusBarManager.CreateStatusBarItem("git-branch");
         _gitStatusItem = StatusBarManager.CreateStatusBarItem("git-status");
@@ -63,12 +69,37 @@ public partial class MainViewModel : ViewModelBase
 
     private void InitLogoItem()
     {
-        _logoItem.Content = new Image
+        var image = new Image
         {
             Source = new Bitmap(AssetLoader.Open(new Uri("avares://StatusBarDemo/Assets/avalonia-logo.ico"))),
             Width = 18,
             Height = 18,
         };
+
+        var showAboutPopupCommand = new RelayCommand(() =>
+        {
+            var flyout = new Flyout()
+            {
+                Content = new TextBlock()
+                {
+                    Text = "Avalonia StatusBar Demo",
+                    FontSize = 18,
+                    FontWeight = FontWeight.Bold,
+                },
+                ShowMode = FlyoutShowMode.TransientWithDismissOnPointerMoveAway,
+            };
+            flyout.ShowAt(image, true);
+        });
+
+        image.ContextMenu = new ContextMenu
+        {
+            Items =
+            {
+                new MenuItem { Header = "_About", Command = showAboutPopupCommand },
+            },
+        };
+
+        _logoItem.Content = image;
         _logoItem.Show();
     }
 
@@ -96,6 +127,7 @@ public partial class MainViewModel : ViewModelBase
     private void InitModeItem()
     {
         _modeItem.Color = Brushes.Black;
+        _modeItem.Name = "Vim Mode";
         _modeItem.Click = () =>
             setMode(
                 _modeItem.Text switch
@@ -126,6 +158,7 @@ public partial class MainViewModel : ViewModelBase
     private void InitGitItem()
     {
         _gitBranchItem.Text = "$(git-branch) master";
+        _gitBranchItem.Name = "Git Branch";
         _gitBranchItem.ToolTip = "Current branch";
         _gitBranchItem.Click = () =>
         {
@@ -136,6 +169,7 @@ public partial class MainViewModel : ViewModelBase
 
         _gitStatusItem.Text = "↑ 1 ↓ 0 ! 0";
         _gitStatusItem.ToolTip = "Sync with remote";
+        _gitStatusItem.Name = "Git Status";
         _gitStatusItem.Click = () =>
         {
             if (_gitStatusItem.Text == "$(sync~spin) ↑ 1 ↓ 0 ! 0")
@@ -156,12 +190,14 @@ public partial class MainViewModel : ViewModelBase
     private void InitLineBreakItem()
     {
         _lineBreakItem.Text = "LF";
+        _lineBreakItem.Name = "Line Break";
         _lineBreakItem.Show();
     }
 
     private void InitEncodingItem()
     {
         _encodingItem.Text = "UTF-8";
+        _encodingItem.Name = "File Encoding";
         _encodingItem.Show();
     }
 
@@ -232,5 +268,16 @@ public partial class MainViewModel : ViewModelBase
         }
 
         await Task.Delay(100);
+    }
+
+    [RelayCommand]
+    private void EnableItem(string? itemId)
+    {
+        if (string.IsNullOrEmpty(itemId))
+        {
+            return;
+        }
+
+        DisabledItems.Remove(itemId);
     }
 }

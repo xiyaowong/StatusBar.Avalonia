@@ -19,6 +19,7 @@
                         MinHeight="{Binding $parent[local:StatusBarContainer].Height}"
                         Padding="{DynamicResource StatusBarEntryRootPadding}"
                         VerticalAlignment="Center"
+                        IsHitTestVisible="True"
                         IsVisible="{TemplateBinding IsShow}"
                         ToolTip.Placement="Top"
                         ToolTip.ServiceEnabled="{TemplateBinding ToolTip,
@@ -67,7 +68,7 @@
         <!--  // Root //  -->
 
         <Style Selector="^ /template/ Border#PART_Root">
-            <Setter Property="Background" Value="{Binding $parent[local:StatusBarContainer].Background}" />
+            <Setter Property="Background" Value="Transparent" />
         </Style>
 
         <Style Selector="^:has-click /template/ Border#PART_Root">

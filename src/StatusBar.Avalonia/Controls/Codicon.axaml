@@ -7,8 +7,8 @@
         <StackPanel Spacing="10">
             <TextBlock Foreground="Aqua">
                 <local:Codicon Foreground="Red"
-                                  Icon="gear"
-                                  Spin="True" />
+                               Icon="gear"
+                               Spin="True" />
                 <local:Codicon Foreground="Red" Icon="&#xea60;" />
                 <local:Codicon Icon="sync" Spin="True" />
                 <local:Codicon Icon="loading" Spin="True" />

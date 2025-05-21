@@ -33,6 +33,11 @@ internal partial class StatusBarEntry : ContentControl
         nameof(Id)
     );
 
+    public static readonly StyledProperty<string?> DisplayNameProperty = AvaloniaProperty.Register<
+        StatusBarEntry,
+        string?
+    >(nameof(DisplayName));
+
     /// <summary>
     /// Defines the <see cref="Alignment"/> avalonia property.
     /// </summary>
@@ -111,6 +116,12 @@ internal partial class StatusBarEntry : ContentControl
     {
         get => GetValue(IdProperty);
         set => SetValue(IdProperty, value);
+    }
+
+    public string? DisplayName
+    {
+        get => GetValue(DisplayNameProperty);
+        set => SetValue(DisplayNameProperty, value);
     }
 
     /// <summary>
