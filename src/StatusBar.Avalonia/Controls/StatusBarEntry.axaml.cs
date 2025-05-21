@@ -235,6 +235,9 @@ internal partial class StatusBarEntry : ContentControl
 
     private void RootBorder_PointerPressed(object? sender, PointerPressedEventArgs args)
     {
+        if (Click == null)
+            return;
+
         if (args.GetCurrentPoint((Control)sender!).Properties.IsLeftButtonPressed)
         {
             isLeftButtonPressed = true;
@@ -243,6 +246,9 @@ internal partial class StatusBarEntry : ContentControl
 
     private void RootBorder_PointerReleased(object? sender, PointerReleasedEventArgs args)
     {
+        if (Click == null)
+            return;
+
         if (!isLeftButtonPressed)
             return;
 
