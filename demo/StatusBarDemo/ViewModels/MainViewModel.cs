@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -28,8 +30,13 @@ public partial class MainViewModel : ViewModelBase
     private readonly StatusBarItem _logoItem;
     private readonly StatusBarItem _counterItem;
 
+    [ObservableProperty]
+    private AvaloniaList<string> _disabledItems;
+
     public MainViewModel()
     {
+        DisabledItems = [];
+
         _modeItem = StatusBarManager.CreateStatusBarItem("mode");
         _gitBranchItem = StatusBarManager.CreateStatusBarItem("git-branch");
         _gitStatusItem = StatusBarManager.CreateStatusBarItem("git-status");
@@ -63,12 +70,37 @@ public partial class MainViewModel : ViewModelBase
 
     private void InitLogoItem()
     {
-        _logoItem.Content = new Image
+        var image = new Image
         {
             Source = new Bitmap(AssetLoader.Open(new Uri("avares://StatusBarDemo/Assets/avalonia-logo.ico"))),
             Width = 18,
             Height = 18,
         };
+
+        var showAboutPopupCommand = new RelayCommand(() =>
+        {
+            var flyout = new Flyout()
+            {
+                Content = new TextBlock()
+                {
+                    Text = "Avalonia StatusBar Demo",
+                    FontSize = 18,
+                    FontWeight = FontWeight.Bold,
+                },
+                ShowMode = FlyoutShowMode.TransientWithDismissOnPointerMoveAway,
+            };
+            flyout.ShowAt(image, true);
+        });
+
+        image.ContextMenu = new ContextMenu
+        {
+            Items =
+            {
+                new MenuItem { Header = "_About", Command = showAboutPopupCommand },
+            },
+        };
+
+        _logoItem.Content = image;
         _logoItem.Show();
     }
 
@@ -232,5 +264,16 @@ public partial class MainViewModel : ViewModelBase
         }
 
         await Task.Delay(100);
+    }
+
+    [RelayCommand]
+    private void EnableItem(string? itemId)
+    {
+        if (string.IsNullOrEmpty(itemId))
+        {
+            return;
+        }
+
+        DisabledItems.Remove(itemId);
     }
 }

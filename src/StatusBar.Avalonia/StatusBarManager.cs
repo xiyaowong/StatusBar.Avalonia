@@ -11,27 +11,27 @@ public class StatusBarManager
 {
     private readonly ConcurrentQueue<StatusBarEntry> _pendingItems = new();
 
-    private StatusBarContainer? _statusBarContainer;
+    private StatusBarContainer? _container;
 
     public StatusBarManager() { }
 
-    public StatusBarManager(StatusBarContainer statusBarContainer)
+    public StatusBarManager(StatusBarContainer container)
     {
-        _statusBarContainer = statusBarContainer;
+        _container = container;
     }
 
     public void BindContainer(StatusBarContainer statusBarContainer)
     {
-        if (_statusBarContainer != null)
+        if (_container != null)
         {
             throw new InvalidOperationException($"{nameof(StatusBarManager)} already has a container.");
         }
 
-        _statusBarContainer = statusBarContainer;
+        _container = statusBarContainer;
 
         while (_pendingItems.TryDequeue(out var item))
         {
-            _statusBarContainer.AddStatusBarEntry(item);
+            _container.AddStatusBarEntry(item);
         }
     }
 
@@ -148,7 +148,7 @@ public class StatusBarManager
 
     private void AddStatusBarEntry(StatusBarEntry entry)
     {
-        if (_statusBarContainer == null)
+        if (_container == null)
         {
             _pendingItems.Enqueue(entry);
             return;
@@ -156,10 +156,10 @@ public class StatusBarManager
 
         while (_pendingItems.TryDequeue(out var item))
         {
-            _statusBarContainer.AddStatusBarEntry(item);
+            _container.AddStatusBarEntry(item);
         }
 
-        _statusBarContainer.AddStatusBarEntry(entry);
+        _container.AddStatusBarEntry(entry);
     }
 }
 

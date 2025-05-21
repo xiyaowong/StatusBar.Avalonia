@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:status="https://github.com/xiyaowong/StatusBar.Avalonia"
+             xmlns:views="clr-namespace:StatusBarDemo.Views"
              xmlns:vm="clr-namespace:StatusBarDemo.ViewModels"
              d:DesignHeight="450"
              d:DesignWidth="1200"
@@ -32,16 +33,14 @@
                 <Button Command="{Binding SimulateSettingPythonEnvironmentCommand}" Content="Setup Python" />
             </StackPanel>
 
-
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         Spacing="10">
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBlock VerticalAlignment="Center"
                                FontSize="16"
-                               FontWeight="Bold">
-                        ColorTheme
-                    </TextBlock>
+                               FontWeight="Bold"
+                               Text="ColorTheme" />
                     <ComboBox SelectedIndex="0" SelectionChanged="ColorThemeChanged">
                         <ComboBoxItem Content="{x:Static status:ColorTheme.DarkPlus}" />
                         <ComboBoxItem Content="{x:Static status:ColorTheme.OneDark}" />
@@ -51,9 +50,8 @@
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBlock VerticalAlignment="Center"
                                FontSize="16"
-                               FontWeight="Bold">
-                        Theme
-                    </TextBlock>
+                               FontWeight="Bold"
+                               Text="Theme" />
                     <ComboBox SelectedIndex="0" SelectionChanged="ThemeChanged">
                         <ComboBoxItem Content="{x:Static ThemeVariant.Dark}" />
                         <ComboBoxItem Content="{x:Static ThemeVariant.Light}" />
@@ -62,7 +60,39 @@
             </StackPanel>
         </Grid>
 
-        <status:StatusBarContainer Name="_StatusBarContainer" Grid.Row="2" />
+        <StackPanel Grid.Row="1"
+                    Margin="10"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Bottom"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       IsVisible="{Binding DisabledItems.Count}"
+                       Text="Disabled items (click to enable): " />
+            <TextBlock VerticalAlignment="Bottom"
+                       Foreground="LightGray"
+                       IsVisible="{Binding !DisabledItems.Count}"
+                       Text="Right click the status bar to enable/disable items." />
+            <ItemsControl ItemsSource="{Binding DisabledItems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--  ReSharper disable once Xaml.PossibleNullReferenceException  -->
+                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType=views:MainView}, Path=((vm:MainViewModel)DataContext).EnableItemCommand}"
+                                CommandParameter="{Binding}"
+                                Content="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <status:StatusBarContainer Name="_StatusBarContainer"
+                                   Grid.Row="2"
+                                   DisabledItems="{Binding DisabledItems}" />
     </Grid>
 
 </UserControl>

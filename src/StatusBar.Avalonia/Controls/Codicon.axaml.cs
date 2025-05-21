@@ -42,9 +42,7 @@ internal class Codicon : TemplatedControl
         set => SetValue(IconProperty, value);
     }
 
-    public static readonly StyledProperty<bool> SpinProperty = AvaloniaProperty.Register<Codicon, bool>(
-        nameof(Spin)
-    );
+    public static readonly StyledProperty<bool> SpinProperty = AvaloniaProperty.Register<Codicon, bool>(nameof(Spin));
 
     public bool Spin
     {
