@@ -38,16 +38,27 @@ public sealed class StatusBarContainer : TemplatedControl
             (o, v) => o.DisabledItems = v
         );
 
+    public static readonly StyledProperty<bool> DisableDefaultContextMenuProperty = AvaloniaProperty.Register<
+        StatusBarContainer,
+        bool
+    >(nameof(DisableDefaultContextMenu));
+
+    public BoxShadows BoxShadow
+    {
+        get => GetValue(BoxShadowProperty);
+        set => SetValue(BoxShadowProperty, value);
+    }
+
     public AvaloniaList<string> DisabledItems
     {
         get;
         set => SetAndRaise(DisabledItemsProperty, ref field, value);
     } = [];
 
-    public BoxShadows BoxShadow
+    public bool DisableDefaultContextMenu
     {
-        get => GetValue(BoxShadowProperty);
-        set => SetValue(BoxShadowProperty, value);
+        get => GetValue(DisableDefaultContextMenuProperty);
+        set => SetValue(DisableDefaultContextMenuProperty, value);
     }
 
     private StackPanel? _leftContainer;
@@ -76,6 +87,7 @@ public sealed class StatusBarContainer : TemplatedControl
         _centerContainer = e.NameScope.Get<StackPanel>(PART_CenterContainer);
         _rightContainer = e.NameScope.Get<StackPanel>(PART_RightContainer);
 
+        ContextRequested -= OnContextRequested;
         ContextRequested += OnContextRequested;
     }
 
@@ -211,7 +223,7 @@ public sealed class StatusBarContainer : TemplatedControl
 
     private void OnContextRequested(object? sender, ContextRequestedEventArgs args)
     {
-        if (args.Handled)
+        if (DisableDefaultContextMenu || args.Handled)
         {
             return;
         }
@@ -238,10 +250,10 @@ public sealed class StatusBarContainer : TemplatedControl
         };
 
         foreach (
-            var entry in _leftContainer
+            var entry in _leftContainer!
                 .Children.OfType<StatusBarEntry>()
-                .Concat(_centerContainer.Children.OfType<StatusBarEntry>())
-                .Concat(_rightContainer.Children.OfType<StatusBarEntry>())
+                .Concat(_centerContainer!.Children.OfType<StatusBarEntry>())
+                .Concat(_rightContainer!.Children.OfType<StatusBarEntry>())
                 .Where(e => !e.IsTemporary)
         )
         {

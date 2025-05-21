@@ -60,10 +60,8 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    Margin="10"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Margin="10" VerticalAlignment="Top">
+            <CheckBox IsChecked="{Binding DisableContextMenu}" Content="Disable the default context menu"></CheckBox>
             <TextBlock VerticalAlignment="Bottom"
                        FontSize="16"
                        FontWeight="Bold"
@@ -82,9 +80,10 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!--  ReSharper disable once Xaml.PossibleNullReferenceException  -->
-                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType=views:MainView}, Path=((vm:MainViewModel)DataContext).EnableItemCommand}"
-                                CommandParameter="{Binding}"
-                                Content="{Binding}" />
+                        <Button
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=views:MainView}, Path=((vm:MainViewModel)DataContext).EnableItemCommand}"
+                            CommandParameter="{Binding}"
+                            Content="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -92,6 +91,7 @@
 
         <status:StatusBarContainer Name="_StatusBarContainer"
                                    Grid.Row="2"
+                                   DisableDefaultContextMenu="{Binding DisableContextMenu}"
                                    DisabledItems="{Binding DisabledItems}" />
     </Grid>
 

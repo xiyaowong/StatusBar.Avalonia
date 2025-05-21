@@ -33,6 +33,9 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private AvaloniaList<string> _disabledItems;
 
+    [ObservableProperty]
+    private bool _disableContextMenu;
+
     public MainViewModel()
     {
         DisabledItems = [];
