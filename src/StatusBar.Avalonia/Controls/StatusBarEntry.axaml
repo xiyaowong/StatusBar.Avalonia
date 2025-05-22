@@ -80,11 +80,11 @@
         </Style>
 
         <Style Selector="^:has-click:not(:has-background):pointerover /template/ Border#PART_Root">
-            <Setter Property="Background" Value="{DynamicResource StatusBarHoverBackgroundColor}" />
+            <Setter Property="Background" Value="{DynamicResource StatusBarItemHoverBackgroundColor}" />
         </Style>
 
         <Style Selector="^:has-click:not(:has-background):pressed /template/ Border#PART_Root">
-            <Setter Property="Background" Value="{DynamicResource StatusBarActiveBackgroundColor}" />
+            <Setter Property="Background" Value="{DynamicResource StatusBarItemActiveBackgroundColor}" />
         </Style>
 
         <!--  // Text //  -->
@@ -98,7 +98,7 @@
         </Style>
 
         <Style Selector="^:has-click:pointerover:not(:has-foreground) /template/ TextBlock._ItemText">
-            <Setter Property="Foreground" Value="{DynamicResource StatusBarHoverForegroundColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource StatusBarItemHoverForegroundColor}" />
         </Style>
 
     </ControlTheme>

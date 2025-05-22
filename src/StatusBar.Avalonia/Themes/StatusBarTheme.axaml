@@ -16,16 +16,16 @@
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="StatusBarBackgroundColor">#21252b</Color>
                     <Color x:Key="StatusBarForegroundColor">#9da5b4</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#1fffffff</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#9da5b4</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#2effffff</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#1fffffff</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#9da5b4</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#2effffff</Color>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="StatusBarBackgroundColor">#eeeeee</Color>
                     <Color x:Key="StatusBarForegroundColor">#383a42</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#1fffffff</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#383a42</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#2effffff</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#1fffffff</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#383a42</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#2effffff</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
@@ -35,16 +35,16 @@
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="StatusBarBackgroundColor">#007acc</Color>
                     <Color x:Key="StatusBarForegroundColor">#ffffff</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#1fffffff</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#ffffff</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#2effffff</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#1fffffff</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#ffffff</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#2effffff</Color>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="StatusBarBackgroundColor">#007acc</Color>
                     <Color x:Key="StatusBarForegroundColor">#ffffff</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#1fffffff</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#ffffff</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#2effffff</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#1fffffff</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#ffffff</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#2effffff</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
@@ -55,16 +55,16 @@
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="StatusBarBackgroundColor">#0d1117</Color>
                     <Color x:Key="StatusBarForegroundColor">#7d8590</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#14e6edf3</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#7d8590</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#1fe6edf3</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#14e6edf3</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#7d8590</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#1fe6edf3</Color>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="StatusBarBackgroundColor">#0d1117</Color>
                     <Color x:Key="StatusBarForegroundColor">#7d8590</Color>
-                    <Color x:Key="StatusBarHoverBackgroundColor">#14e6edf3</Color>
-                    <Color x:Key="StatusBarHoverForegroundColor">#7d8590</Color>
-                    <Color x:Key="StatusBarActiveBackgroundColor">#1fe6edf3</Color>
+                    <Color x:Key="StatusBarItemHoverBackgroundColor">#14e6edf3</Color>
+                    <Color x:Key="StatusBarItemHoverForegroundColor">#7d8590</Color>
+                    <Color x:Key="StatusBarItemActiveBackgroundColor">#1fe6edf3</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
