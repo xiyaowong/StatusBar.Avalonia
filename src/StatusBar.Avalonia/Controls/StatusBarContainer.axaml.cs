@@ -17,7 +17,7 @@ using Avalonia.VisualTree;
 namespace StatusBar.Avalonia.Controls;
 
 /// <summary>
-///  Represents a container for status bar items.
+/// The container for status bar items.
 /// </summary>
 [PseudoClasses(PC_HasBackground)]
 public sealed class StatusBarContainer : TemplatedControl
@@ -28,9 +28,15 @@ public sealed class StatusBarContainer : TemplatedControl
 
     private const string PC_HasBackground = ":has-background";
 
+    /// <summary>
+    /// Defines the <see cref="BoxShadow"/> avalonia property.
+    /// </summary>
     public static readonly StyledProperty<BoxShadows> BoxShadowProperty =
         Border.BoxShadowProperty.AddOwner<StatusBarContainer>();
 
+    /// <summary>
+    /// Defines the <see cref="DisabledItems"/> avalonia property.
+    /// </summary>
     public static readonly DirectProperty<StatusBarContainer, AvaloniaList<string>> DisabledItemsProperty =
         AvaloniaProperty.RegisterDirect<StatusBarContainer, AvaloniaList<string>>(
             nameof(DisabledItems),
@@ -38,23 +44,35 @@ public sealed class StatusBarContainer : TemplatedControl
             (o, v) => o.DisabledItems = v
         );
 
+    /// <summary>
+    /// Defines the <see cref="DisableDefaultContextMenu"/> avalonia property.
+    /// </summary>
     public static readonly StyledProperty<bool> DisableDefaultContextMenuProperty = AvaloniaProperty.Register<
         StatusBarContainer,
         bool
     >(nameof(DisableDefaultContextMenu));
 
+    /// <summary>
+    /// Gets or sets the box shadow effect applied to the container.
+    /// </summary>
     public BoxShadows BoxShadow
     {
         get => GetValue(BoxShadowProperty);
         set => SetValue(BoxShadowProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the collection of status bar item IDs that should be hidden.
+    /// </summary>
     public AvaloniaList<string> DisabledItems
     {
         get;
         set => SetAndRaise(DisabledItemsProperty, ref field, value);
     } = [];
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the default context menu should be disabled.
+    /// </summary>
     public bool DisableDefaultContextMenu
     {
         get => GetValue(DisableDefaultContextMenuProperty);

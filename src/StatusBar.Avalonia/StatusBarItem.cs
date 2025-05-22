@@ -6,7 +6,7 @@ using StatusBar.Avalonia.Controls;
 namespace StatusBar.Avalonia;
 
 /// <summary>
-/// Controls the status bar item.
+/// Represents a status bar item.
 /// </summary>
 public sealed class StatusBarItem : IDisposable
 {
@@ -185,6 +185,9 @@ public sealed class StatusBarItem : IDisposable
         }
     }
 
+    /// <summary>
+    /// Font weight of the item.
+    /// </summary>
     public FontWeight FontWeight
     {
         get;
@@ -203,6 +206,9 @@ public sealed class StatusBarItem : IDisposable
         }
     }
 
+    /// <summary>
+    /// Custom content to show in the status bar.
+    /// </summary>
     public object? Content
     {
         get
@@ -257,7 +263,9 @@ public sealed class StatusBarItem : IDisposable
             Dispatcher.UIThread.Invoke(() => _entry.IsShow = false);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///Dispose and free associated resources. Call <see cref="Hide"/>.
+    /// </summary>
     public void Dispose()
     {
         if (_entry == null)

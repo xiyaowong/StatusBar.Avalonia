@@ -13,13 +13,26 @@ public class StatusBarManager
 
     private StatusBarContainer? _container;
 
+    /// <summary>
+    /// Initializes a new instance of the StatusBarManager class.
+    /// </summary>
     public StatusBarManager() { }
 
+    /// <summary>
+    /// Binds a StatusBarContainer to this manager. Can only be called once.
+    /// </summary>
+    /// <param name="container">The StatusBarContainer to bind.</param>
+    /// <exception cref="InvalidOperationException">Thrown when a container is already bound to this manager.</exception>
     public StatusBarManager(StatusBarContainer container)
     {
         _container = container;
     }
 
+    /// <summary>
+    /// Binds a StatusBarContainer to this manager. Can only be called once.
+    /// </summary>
+    /// <param name="statusBarContainer">The StatusBarContainer to bind.</param>
+    /// <exception cref="InvalidOperationException">Thrown when a container is already bound to this manager.</exception>
     public void BindContainer(StatusBarContainer statusBarContainer)
     {
         if (_container != null)
@@ -36,12 +49,13 @@ public class StatusBarManager
     }
 
     /// <summary>
-    /// Creates a status bar item.
+    /// Creates a new status bar item with specified parameters.
     /// </summary>
-    /// <param name="id">The identifier of the item. Must be unique.</param>
-    /// <param name="alignment">The alignment of the item.</param>
-    /// <param name="priority">The priority of the item. Higher values mean the item should be shown more to the left.</param>
-    /// <returns></returns>
+    /// <param name="id">The unique identifier for the status bar item.</param>
+    /// <param name="alignment">The alignment of the item within the status bar.</param>
+    /// <param name="priority">The priority of the item. Higher values position the item more to the left. Defaults to 0.</param>
+    /// <returns>A new StatusBarItem instance.</returns>
+    /// <remarks>This method must be called from the UI thread.</remarks>
     public StatusBarItem CreateStatusBarItem(string id, StatusBarAlignment alignment = default, int priority = 0)
     {
         Dispatcher.UIThread.VerifyAccess();
@@ -57,11 +71,12 @@ public class StatusBarManager
     }
 
     /// <summary>
-    /// Set a message to the status bar.
+    /// Sets a temporary message in the status bar that automatically hides after a specified timeout.
     /// </summary>
-    /// <param name="text">The message to show, supports icon substitution.</param>
-    /// <param name="hideAfterTimeout">Timeout in milliseconds after which the message will be disposed.</param>
-    /// <returns>A disposable which hides the status bar message.</returns>
+    /// <param name="text">The message text to display. Supports icon substitution.</param>
+    /// <param name="hideAfterTimeout">The duration in milliseconds after which the message will be hidden.</param>
+    /// <returns>An IDisposable object that can be used to manually hide the message before the timeout.</returns>
+    /// <remarks>This method must be called from the UI thread.</remarks>
     public IDisposable SetStatusBarMessage(string text, int hideAfterTimeout)
     {
         Dispatcher.UIThread.VerifyAccess();
@@ -104,11 +119,12 @@ public class StatusBarManager
     }
 
     /// <summary>
-    /// Set a message to the status bar.
+    /// Sets a temporary message in the status bar that hides when a specified task completes.
     /// </summary>
-    /// <param name="text">The message to show, supports icon substitution.</param>
-    /// <param name="hideWhenDone">A task which when completed will hide the message.</param>
-    /// <returns>A disposable which hides the status bar message.</returns>
+    /// <param name="text">The message text to display. Supports icon substitution.</param>
+    /// <param name="hideWhenDone">A function that returns a Task. The message will be hidden when this task completes.</param>
+    /// <returns>An IDisposable object that can be used to manually hide the message before the task completes.</returns>
+    /// <remarks>This method must be called from the UI thread.</remarks>
     public IDisposable SetStatusBarMessage(string text, Func<Task> hideWhenDone)
     {
         Dispatcher.UIThread.VerifyAccess();

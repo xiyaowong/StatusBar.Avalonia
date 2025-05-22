@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using Avalonia.Styling;
 
 namespace StatusBar.Avalonia.Themes;
@@ -29,6 +26,9 @@ public enum ColorTheme
 
 public class StatusBarTheme : Styles, IResourceNode
 {
+    /// <summary>
+    /// Defines the <see cref="ColorTheme"/> avalonia property.
+    /// </summary>
     public static readonly DirectProperty<StatusBarTheme, ColorTheme> ColorThemeProperty =
         AvaloniaProperty.RegisterDirect<StatusBarTheme, ColorTheme>(
             nameof(ColorTheme),
@@ -36,6 +36,9 @@ public class StatusBarTheme : Styles, IResourceNode
             (o, v) => o.ColorTheme = v
         );
 
+    /// <summary>
+    /// Color theme of the status bar.
+    /// </summary>
     public ColorTheme ColorTheme
     {
         get;
