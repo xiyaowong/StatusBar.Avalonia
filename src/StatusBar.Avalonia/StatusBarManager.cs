@@ -75,9 +75,10 @@ public class StatusBarManager
     /// </summary>
     /// <param name="text">The message text to display. Supports icon substitution.</param>
     /// <param name="hideAfterTimeout">The duration in milliseconds after which the message will be hidden.</param>
+    /// <param name="options">Optional parameters to customize the appearance and behavior of the temporary message.</param>
     /// <returns>An IDisposable object that can be used to manually hide the message before the timeout.</returns>
     /// <remarks>This method must be called from the UI thread.</remarks>
-    public IDisposable SetStatusBarMessage(string text, int hideAfterTimeout)
+    public IDisposable SetStatusBarMessage(string text, int hideAfterTimeout, TemporaryMessageOptions? options = null)
     {
         Dispatcher.UIThread.VerifyAccess();
 
@@ -88,6 +89,16 @@ public class StatusBarManager
             Text = text,
             IsShow = true,
         };
+
+        if (options != null)
+        {
+            entry.Alignment = options.Alignment ?? entry.Alignment;
+            entry.Priority = options.Priority ?? entry.Priority;
+            entry.Color = options.Color ?? entry.Color;
+            entry.BackgroundColor = options.BackgroundColor ?? entry.BackgroundColor;
+            entry.FontWeight = options.FontWeight ?? entry.FontWeight;
+        }
+
         AddStatusBarEntry(entry);
 
         var cts = new CancellationTokenSource();
@@ -123,9 +134,14 @@ public class StatusBarManager
     /// </summary>
     /// <param name="text">The message text to display. Supports icon substitution.</param>
     /// <param name="hideWhenDone">A function that returns a Task. The message will be hidden when this task completes.</param>
+    /// <param name="options">Optional parameters to customize the appearance and behavior of the temporary message.</param>
     /// <returns>An IDisposable object that can be used to manually hide the message before the task completes.</returns>
     /// <remarks>This method must be called from the UI thread.</remarks>
-    public IDisposable SetStatusBarMessage(string text, Func<Task> hideWhenDone)
+    public IDisposable SetStatusBarMessage(
+        string text,
+        Func<Task> hideWhenDone,
+        TemporaryMessageOptions? options = null
+    )
     {
         Dispatcher.UIThread.VerifyAccess();
 
@@ -136,6 +152,16 @@ public class StatusBarManager
             Text = text,
             IsShow = true,
         };
+
+        if (options != null)
+        {
+            entry.Alignment = options.Alignment ?? entry.Alignment;
+            entry.Priority = options.Priority ?? entry.Priority;
+            entry.Color = options.Color ?? entry.Color;
+            entry.BackgroundColor = options.BackgroundColor ?? entry.BackgroundColor;
+            entry.FontWeight = options.FontWeight ?? entry.FontWeight;
+        }
+
         AddStatusBarEntry(entry);
 
         var cts = new CancellationTokenSource();
