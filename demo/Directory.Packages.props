@@ -2,17 +2,18 @@
     <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management -->
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <AvaloniaVersion>12.0.4</AvaloniaVersion>
     </PropertyGroup>
     <ItemGroup>
         <!-- Avalonia packages -->
         <!-- Important: keep version in sync! -->
-        <PackageVersion Include="Avalonia" Version="11.3.0" />
-        <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
-        <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.0" />
-        <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.0" />
-        <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
-        <PackageVersion Include="Avalonia.Browser" Version="11.3.0" />
+        <PackageVersion Include="Avalonia" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.2" />
+        <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Browser" Version="$(AvaloniaVersion)" />
 
-        <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+        <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     </ItemGroup>
 </Project>

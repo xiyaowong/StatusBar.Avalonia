@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
@@ -19,12 +20,12 @@ public enum ColorTheme
     OneDark,
 
     /// <summary>
-    /// Dark: Github Dark Default - Light: Github Light Default
+    /// Dark: GitHub Dark Default - Light: GitHub Light Default
     /// </summary>
     GithubDefault,
 }
 
-public class StatusBarTheme : Styles, IResourceNode
+public partial class StatusBarTheme : Styles, IResourceNode
 {
     /// <summary>
     /// Defines the <see cref="ColorTheme"/> avalonia property.
@@ -74,7 +75,7 @@ public class StatusBarTheme : Styles, IResourceNode
 
         if (change.Property == ColorThemeProperty)
         {
-            Owner?.NotifyHostedResourcesChanged(ResourcesChangedEventArgs.Empty);
+            Owner?.NotifyHostedResourcesChanged(ResourcesChangedEventArgs.Create());
         }
     }
 
